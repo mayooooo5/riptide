@@ -54,17 +54,53 @@ return {
 
 var circles = [];
 
-canvas.addEventListener('click', function (evt) {
-var mousePos = getMousePos(canvas, evt);
-var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
-var colour = '#' + Math.floor(Math.random() * 16777215).toString(16); //16777215 is the decimal value of #FFFFFF
+var makeBubble = function(posX,posY) {
 
-circles.unshift({
-    x: mousePos.x,
-    y: mousePos.y,
-    radius: 10,
-    colour: colour
-});
+    var colour = '#' + Math.floor(Math.random() * 16777215).toString(16); //16777215 is the decimal value of #FFFFFF
+
+    circles.unshift({
+        x: posX,
+        y: posY,
+        radius: 10,
+        colour: colour
+    });
+}
+
+document.onkeypress = function(e) {
+  var e = e || event;
+  console.log(e);
+  // var chr = getChar(e);
+  console.log(e.key);
+  console.log(e.charCode);
+
+  if(e.key == 'h'){
+      console.log('hello h');
+      makeBubble(200,200)
+    //   playThis(sound_1);
+  }
+  if(e.key == 'j'){
+      makeBubble(400,400)
+    //   playThis(sound_2);
+  }
+}
+
+canvas.addEventListener('click', function (evt) {
+    var mousePos = getMousePos(canvas, evt);
+    var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
+    console.log(message);
+    var posX = mousePos.x;
+    var posY = mousePos.y;
+    makeBubble(posX, posY);
+// var mousePos = getMousePos(canvas, evt);
+// var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
+// var colour = '#' + Math.floor(Math.random() * 16777215).toString(16); //16777215 is the decimal value of #FFFFFF
+//
+// circles.unshift({
+//     x: mousePos.x,
+//     y: mousePos.y,
+//     radius: 10,
+//     colour: colour
+// });
 
 }, false);
 
