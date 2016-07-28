@@ -55,12 +55,24 @@ console.log('load');
 
 var sound_1 = {};
 var sound_2 = {};
-sound_1['url'] = 'mayanmath5.wav';
-sound_2['url'] = 'groter.wav';
+var sound_3 = {};
+var sound_4 = {};
+var sound_5 = {};
+var sound_6 = {};
+sound_1['url'] = 'riptide_track_1.ogg';
+sound_2['url'] = 'riptide_track_2.ogg';
+sound_3['url'] = 'riptide_track_3.ogg';
+sound_4['url'] = 'riptide_track_4.ogg';
+sound_5['url'] = 'riptide_track_5.ogg';
+sound_6['url'] = 'riptide_track_6.ogg';
 loadAudio(sound_1, sound_1.url);
 loadAudio(sound_2, sound_2.url);
+loadAudio(sound_3, sound_3.url);
+loadAudio(sound_4, sound_4.url);
+loadAudio(sound_5, sound_5.url);
+loadAudio(sound_6, sound_6.url);
 
-trackArray = [sound_1,sound_2];
+trackArray = [sound_1,sound_2,sound_3,sound_4,sound_5,sound_6];
 
 var oldSource = null;
 var oldObject = null;
@@ -163,13 +175,29 @@ document.onkeypress = function(e) {
     // console.log(posX);
     // console.log(posY);
 
-  if(e.key == 'h'){
+  if(e.key == 'c'){
       makeBubble(posX,posY);
       playThis(sound_1);
   }
-  if(e.key == 'j'){
+  if(e.key == 'o'){
       makeBubble(posX,posY)
       playThis(sound_2);
+  }
+  if(e.key == 'd'){
+      makeBubble(posX,posY)
+      playThis(sound_3);
+  }
+  if(e.key == 'i'){
+      makeBubble(posX,posY)
+      playThis(sound_4);
+  }
+  if(e.key == 'n'){
+      makeBubble(posX,posY)
+      playThis(sound_5);
+  }
+  if(e.key == 'g'){
+      makeBubble(posX,posY)
+      playThis(sound_6);
   }
 }
 
