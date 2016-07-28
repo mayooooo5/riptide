@@ -22,7 +22,90 @@ overflow: hidden;
     <body>
         <canvas id="canvas1"></canvas>
 
-        <script type="text/javascript">
+<script type="text/javascript">
+var context, soundSource, soundBuffer, url = 'mayanmath5.wav';
+
+// Step 1 - Initialise the Audio Context
+// There can be only one!
+
+function init() {
+    if (typeof AudioContext !== "undefined") {
+        context = new AudioContext();
+    } else if (typeof webkitAudioContext !== "undefined") {
+        context = new webkitAudioContext();
+    } else {
+        throw new Error('AudioContext not supported. :(');
+    }
+}
+init();
+
+function loadAudio(object, url) {
+console.log('load');
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+
+    request.onload = function() {
+        context.decodeAudioData(request.response, function(buffer) {
+            object.buffer = buffer;
+        });
+    }
+    request.send();
+}
+
+var sound_1 = {};
+var sound_2 = {};
+sound_1['url'] = 'mayanmath5.wav';
+sound_2['url'] = 'groter.wav';
+loadAudio(sound_1, sound_1.url);
+loadAudio(sound_2, sound_2.url);
+
+var oldSource = null;
+var oldObject = null;
+var playing = false
+var isRepeat = false;
+var playThis = function (object) {
+    if(oldSource && playing){
+        oldSource.stop();
+        playing = false;
+        isRepeat = true;
+    }
+    oldSource = context.createBufferSource();
+
+    if((oldObject == object) && isRepeat){
+        isRepeat = false;
+        return;
+    }
+
+    oldObject = object;
+
+    var s = oldSource;
+
+    // console.log('playin');
+    s.buffer = object.buffer;
+    // console.log(s.buffer);
+
+    // soundSource.buffer = soundBuffer;
+
+    volumeNode = context.createGain();
+
+    //Set the volume
+    volumeNode.gain.value = 0.1;
+
+    // Wiring
+    s.connect(volumeNode);
+    volumeNode.connect(context.destination);
+    // soundSource.start(context.currentTime);
+
+
+        s.start(0);
+        playing = true;
+        s.onended = function() {
+          playing = false;
+        }
+        // object.s = s;
+}
+
 var canvas  = document.getElementById('canvas1');
 var scratch = document.createElement('canvas');
 var ctx  = canvas.getContext('2d');
@@ -76,11 +159,11 @@ document.onkeypress = function(e) {
   if(e.key == 'h'){
       console.log('hello h');
       makeBubble(200,200)
-    //   playThis(sound_1);
+      playThis(sound_1);
   }
   if(e.key == 'j'){
       makeBubble(400,400)
-    //   playThis(sound_2);
+      playThis(sound_2);
   }
 }
 
