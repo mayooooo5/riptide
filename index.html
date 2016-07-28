@@ -158,13 +158,17 @@ document.onkeypress = function(e) {
   console.log(e.key);
   console.log(e.charCode);
 
+    posX = Math.random () * canvas.width;
+    posY= Math.random () * canvas.height;
+    // console.log(posX);
+    // console.log(posY);
+
   if(e.key == 'h'){
-      console.log('hello h');
-      makeBubble(200,200)
+      makeBubble(posX,posY);
       playThis(sound_1);
   }
   if(e.key == 'j'){
-      makeBubble(400,400)
+      makeBubble(posX,posY)
       playThis(sound_2);
   }
 }
