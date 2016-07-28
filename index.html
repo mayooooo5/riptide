@@ -60,6 +60,8 @@ sound_2['url'] = 'groter.wav';
 loadAudio(sound_1, sound_1.url);
 loadAudio(sound_2, sound_2.url);
 
+trackArray = [sound_1,sound_2];
+
 var oldSource = null;
 var oldObject = null;
 var playing = false
@@ -167,6 +169,7 @@ document.onkeypress = function(e) {
   }
 }
 
+var trackPosition = 0;
 canvas.addEventListener('click', function (evt) {
     var mousePos = getMousePos(canvas, evt);
     var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
@@ -174,6 +177,8 @@ canvas.addEventListener('click', function (evt) {
     var posX = mousePos.x;
     var posY = mousePos.y;
     makeBubble(posX, posY);
+    playThis(trackArray[trackPosition]);
+    trackPosition = (trackPosition + 1) % trackArray.length;
 // var mousePos = getMousePos(canvas, evt);
 // var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
 // var colour = '#' + Math.floor(Math.random() * 16777215).toString(16); //16777215 is the decimal value of #FFFFFF
